@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,7 +87,7 @@ public class ClienteController {
 	@RequestMapping(value = {"/listar","/"}, method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, 
 						Model model,
-						Authentication authentication) {
+						Authentication authentication, HttpServletRequest request) {
 		
 		if(authentication != null) {
 			logger.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
@@ -102,7 +104,24 @@ public class ClienteController {
 		}else {
 			logger.info("Hola: ".concat(auth.getName().concat(" NO tienes acceso")));
 		}
-
+			
+		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request, "");
+		
+		if(securityContext.isUserInRole("ROLE_ADMIN")) {
+			logger.info("FORMA SECURITY CONTEXT HOLDER AWARE REQUEST WRAPPER Hola ".concat(auth.getName().concat(" tienes acceso")));
+			
+		}else {
+			logger.info("FORMA SECURITY CONTEXT HOLDER AWARE REQUEST WRAPPER Hola: ".concat(auth.getName().concat(" NO tienes acceso")));
+		}
+		
+		if(request.isUserInRole("ROLE_ADMIN")) {
+			logger.info("FORMA HttpServletRequest Hola ".concat(auth.getName().concat(" tienes acceso")));
+			
+		}else {
+			logger.info("FORMA HttpServletRequest Hola: ".concat(auth.getName().concat(" NO tienes acceso")));
+		}
+		
+		
 		Pageable pageRequest = PageRequest.of(page, 4);
 
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
