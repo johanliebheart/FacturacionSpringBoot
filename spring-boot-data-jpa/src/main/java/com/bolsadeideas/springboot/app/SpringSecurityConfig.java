@@ -1,6 +1,6 @@
 package com.bolsadeideas.springboot.app;
 
-import javax.sql.DataSource;
+//simport javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,10 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccesHandler;
 import com.bolsadeideas.springboot.app.models.service.JpaUserDetailService;
@@ -37,7 +37,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		
 		
-		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/img/**","/listar").permitAll().
+		http.authorizeRequests().antMatchers("/","/css/**","/js/**","/img/**","/listar","/locale").permitAll().
 		//antMatchers("/ver/**").hasAnyRole("USER").
 		//antMatchers("/uploads/**").hasAnyRole("USER").
 		//antMatchers("/form/**").hasAnyRole("ADMIN").
