@@ -110,10 +110,12 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	@Transactional
-	public Factura fetchByIdWithClienteWithItemFacturaWithProducto(Long id) {
+	public Factura fetchFacturaByIdWithClienteWhithItemFacturaWithProducto(Long id) {
 		// TODO Auto-generated method stub
 		return facturaDao.fetchByIdWithClienteWithItemFacturaWithProducto(id);
 	}
+
+	
 
 	
 	
